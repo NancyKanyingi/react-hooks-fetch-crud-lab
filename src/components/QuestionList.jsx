@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
+import QuestionItem from "./QuestionItem";
 
-function QuestionList() {
+function QuestionList(question) {
 const [questions, setQuestions] = useState([]);
 const[isLoaded, setIsLoaded] = useState(false)
 
@@ -18,7 +19,7 @@ useEffect(() => {
   return (
     <section>
       <h1>Quiz Questions</h1>
-      <ul> {/* display QuestionItem components here after fetching */}</ul>
+      <ul> {/* display QuestionItem components here after fetching */}<QuestionItem question={questions} /></ul>
     </section>
   );
 

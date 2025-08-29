@@ -4,7 +4,8 @@ import QuestionForm from "./QuestionForm";
 import QuestionList from "./QuestionList";
 
 function App() {
-  
+
+  const [page, setPage] = useState("List")
   const [questions, setQuestions] = useState([])
    useEffect(() => {
     fetch("http://localhost:4000/questions")
@@ -12,21 +13,21 @@ function App() {
       .then((data) => setQuestions(data));
   }, []);
 
-  //  function handleAddQuestion(newQuestion) {
-  //   fetch("http://localhost:4000/questions", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(newQuestion),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setQuestions([...questions, data]));
-  // }
+   function handleAddQuestion(newQuestion) {
+    fetch("http://localhost:4000/questions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newQuestion),
+    })
+      .then((res) => res.json())
+      .then((data) => setQuestions([...questions, data]));
+  }
 
    function handleUpdateQuestion(updatedQuestion) {
     fetch(`http://localhost:4000/questions/${updatedQuestion.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ correctIndex: updatedQuestion.correctIndex }),
+      body: JSON.stringify({ }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -37,12 +38,12 @@ function App() {
     fetch(`http://localhost:4000/questions/${id}`, {
       method: "DELETE",
     }).then(() => {
-      setQuestions(questions.filter((q) => q.id !== id));
+      setQuestions(questions.filter((questions) => questions.id !== id));
     });
   }
   return (
     <main>
-      <AdminNavBar onChangePage={setPage} />
+      <AdminNavBar  />
     <QuestionList 
         questions={questions} 
         onDeleteQuestion={handleDeleteQuestion} 

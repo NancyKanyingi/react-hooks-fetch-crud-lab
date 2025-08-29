@@ -7,7 +7,6 @@ function QuestionForm(props) {
     answer2: "",
     answer3: "",
     answer4: "",
-    correctIndex: 0,
   });
 
   function handleChange(event) {
@@ -26,16 +25,15 @@ function QuestionForm(props) {
         body: {
           "prompt": String,
           "answers": "array of strings",
-          "correctIndex": integer
         }
     })
-  //   console.log(formData);
-  // }
+    console.log(formData);
+   }
 
 
   return (
     <section>
-      <h1 onClick={onSubmit}>New Question</h1>
+      <h1>New Question</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Prompt:
@@ -99,7 +97,6 @@ function QuestionForm(props) {
       </form>
     </section>
   );
-}
 }
 
 export default QuestionForm;
