@@ -19,12 +19,23 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
-  }
+
+    fetch("https://localhost:4000/questions", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: {
+          "prompt": String,
+          "answers": "array of strings",
+          "correctIndex": integer
+        }
+    })
+  //   console.log(formData);
+  // }
+
 
   return (
     <section>
-      <h1>New Question</h1>
+      <h1 onClick={onSubmit}>New Question</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Prompt:
@@ -84,10 +95,11 @@ function QuestionForm(props) {
             <option value="3">{formData.answer4}</option>
           </select>
         </label>
-        <button type="submit">Add Question</button>
+        <button type="submit" onClick={handleSubmit}>Add Question</button>
       </form>
     </section>
   );
+}
 }
 
 export default QuestionForm;
