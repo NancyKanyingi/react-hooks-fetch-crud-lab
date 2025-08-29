@@ -37,19 +37,26 @@ function App() {
     function handleDeleteQuestion(id) {
     fetch(`http://localhost:4000/questions/${id}`, {
       method: "DELETE",
+      body:JSON.stringify({})
     }).then(() => {
-      setQuestions(questions.filter((questions) => questions.id !== id));
-    });
+      setQuestions(questions.filter((q) => q.id !== id));
+    })
+      
   }
+  
   return (
     <main>
-      <AdminNavBar  />
-    <QuestionList 
-        questions={questions} 
-        onDeleteQuestion={handleDeleteQuestion} 
-        onUpdateQuestion={handleUpdateQuestion}
-      />
-      {page === "Form" ? <QuestionForm  /> : <QuestionList />}
+        <AdminNavBar setPage={setPage}  />
+      {page === "Form" ? (
+  <QuestionForm onAddQuestion={handleAddQuestion}  />
+) : (
+  <QuestionList 
+    questions={questions} 
+    onDeleteQuestion={handleDeleteQuestion} 
+    onUpdateQuestion={handleUpdateQuestion} 
+  />
+)}
+  
     </main>
   );
 }

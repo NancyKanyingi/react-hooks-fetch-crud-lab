@@ -7,6 +7,7 @@ function QuestionForm(props) {
     answer2: "",
     answer3: "",
     answer4: "",
+    correctIndex:0,
   });
 
   function handleChange(event) {
@@ -19,12 +20,13 @@ function QuestionForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    fetch("https://localhost:4000/questions", {
+    fetch("http://localhost:4000/questions", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: {
-          "prompt": String,
-          "answers": "array of strings",
+         prompt: formData.prompt,
+        answers: [formData.answer1, formData.answer2, formData.answer3, formData.answer4],
+        correctIndex: formData.correctIndex,
         }
     })
     console.log(formData);
@@ -93,7 +95,7 @@ function QuestionForm(props) {
             <option value="3">{formData.answer4}</option>
           </select>
         </label>
-        <button type="submit" onClick={handleSubmit}>Add Question</button>
+        <button type="submit">Add Question</button>
       </form>
     </section>
   );
